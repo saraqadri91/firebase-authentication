@@ -12,7 +12,7 @@ signUpBtn.addEventListener('click', () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log('User created:', user);
-                location.href = index.html
+             window.location.href = "index.html";
             })
             .catch((error) => {
                 const errorCode = error.code;
