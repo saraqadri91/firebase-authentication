@@ -1,5 +1,5 @@
-import { getAuth, createUserWithEmailAndPassword } from "./fire-base.js";
-
+import { getAuth, createUserWithEmailAndPassword,GoogleAuthProvider,signInWithPopup } from "./fire-base.js";
+const provider = new GoogleAuthProvider();
 const auth = getAuth();
 let signEmail = document.getElementById('sign-email')
 let signPass = document.getElementById('sign-pass')
@@ -30,4 +30,23 @@ signUpBtn.addEventListener('click', () => {
         });
     }
 })
-
+let googlebtn = document.getElementById("google")
+googlebtn.addEventListener("click",()=>{
+    signInWithPopup(auth, provider)
+  .then((result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    window.location.href = "index.html";
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+})
+document.getElementById("login").addEventListener("click",()=>{window.location.href ="index.html"})
